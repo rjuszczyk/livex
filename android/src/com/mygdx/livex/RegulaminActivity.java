@@ -24,6 +24,6 @@ public class RegulaminActivity extends AppCompatActivity {
             }
         });
         mWebView.setHorizontalScrollBarEnabled(false);
-        mWebView.loadUrl("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/gardimax/regulamin.html");
+        mWebView.loadUrl("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/livex/regulamin.html");
     }
 }

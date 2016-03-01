@@ -20,9 +20,7 @@ public class PodiumGame extends ApplicationAdapter {
 	private SpriteBatch batchLarge;
 	private OrthographicCamera camLarge;
 
-	PositionedTexture kulkiBottom;
 
-	public static final float ANIMATION_SPEED = 3;
 	Runnable mOnQuizEnd;
 	Runnable mPlayPositive;
 	private Texture white;
@@ -46,7 +44,7 @@ public class PodiumGame extends ApplicationAdapter {
 		super.resize(width, height);
 
 
-		cam.viewportWidth = 1200;
+		cam.viewportWidth = 1280;
 		cam.viewportHeight = 800;
 		camLarge.viewportWidth = width;
 		camLarge.viewportHeight = height;
@@ -73,7 +71,7 @@ public class PodiumGame extends ApplicationAdapter {
 			{
 				// m_fboScaler increase or decrease the antialiasing quality
 
-				m_fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)(1200), (int)(800), false);
+				m_fbo = new FrameBuffer(Pixmap.Format.RGBA8888, (int)(1280), (int)(800), false);
 				m_fboRegion = new TextureRegion(m_fbo.getColorBufferTexture());
 				m_fboRegion.flip(false, true);
 			}
@@ -103,7 +101,7 @@ public class PodiumGame extends ApplicationAdapter {
 
 
 
-			float ratio = 800f/1200f;
+			float ratio = 800f/1280f;
 			float height2 = width*ratio;
 			float y = height-height2;
 			y/=2;
@@ -114,15 +112,15 @@ public class PodiumGame extends ApplicationAdapter {
 
 
 			batchLarge.draw(m_fboRegion, 0, y, width, height2);
-
-			float tr = width/(float)mTextTop.getWidth();
-			float fh = mTextTop.getHeight()* tr;
-			batchLarge.draw(mTextTop,0,height-fh, width, fh);
-
-			tr = width/(float)mTextBottom.getWidth();
-			 fh = mTextBottom.getHeight()* tr;
-
-			batchLarge.draw(mTextBottom,0,0, width, fh);
+//
+//			float tr = width/(float)mTextTop.getWidth();
+//			float fh = mTextTop.getHeight()* tr;
+//			batchLarge.draw(mTextTop,0,height-fh, width, fh);
+//
+//			tr = width/(float)mTextBottom.getWidth();
+//			 fh = mTextBottom.getHeight()* tr;
+//
+//			batchLarge.draw(mTextBottom,0,0, width, fh);
 
 			batchLarge.end();
 		}
@@ -190,8 +188,6 @@ public class PodiumGame extends ApplicationAdapter {
 
 	boolean drawNapis = false;
 	boolean drawKorona = false;
-	Texture mTextTop;
-	Texture mTextBottom;
 	float co = 0;
 	float co2 = 0;
 	@Override
@@ -200,25 +196,19 @@ public class PodiumGame extends ApplicationAdapter {
 		batchLarge = new SpriteBatch();
 		PositionedTexture.screenHeight = 800;
 		PositionedTexture.screenWidth = 1280;
-		mTextTop = new Texture("pytanie_bg_top.png");
-		mTextBottom = new Texture("kulki_bottom.png");
 		loadQuestion();
 
 		white = new Texture("white.jpg");
 
+		mTextures.add(new PositionedTexture("podium.png", 210, 45));
 
-		mTextures.add(new PositionedTexture("tlo.png", 0, 232));
-		mTextures.add(new PositionedTexture("podium.png", 197, 450));
-		mTextures.add(new PositionedTexture("tlo.png", 0, 232));
-		mTextures.add(new PositionedTexture("pudelko.png", 411,241));
-
-		korona = new com.mygdx.livex.AnimatablePositionedTexture("korona.png",377,93);
-		napisBoczny = new com.mygdx.livex.AnimatablePositionedTexture("napis_boczny.png", 723,287);
+		korona = new com.mygdx.livex.AnimatablePositionedTexture("napis_left.jpg",221,135);
+		napisBoczny = new com.mygdx.livex.AnimatablePositionedTexture("logo_right.jpg", 508,275);
 
 		korona.isVisible2 = false;
 		napisBoczny.isVisible2 = false;
 
-		cam = new OrthographicCamera(1200, 800);
+		cam = new OrthographicCamera(1280, 800);
 		camLarge = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		cam.position.set(cam.viewportWidth / 2f, cam.viewportHeight / 2f, 0);
 		camLarge.position.set(camLarge.viewportWidth / 2f, camLarge.viewportHeight / 2f, 0);

@@ -33,8 +33,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	}
 
 
-	int currentQuestion = 0;
-	Baba baba;
 	List<Answer> answers;
 
 	List<PositionedTexture> mTextures = new ArrayList<PositionedTexture>();
@@ -165,20 +163,19 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 			answer.draw(batch);
 		}
 
-		//baba.draw(batch);
 
 		batch.end();
 
 		dropBox.isWrong((int) (deltaTime * 1000), new Runnable() {
 			@Override
 			public void run() {
-				baba.state = Baba.State.CZEKA;
+
 			}
 		});
 		dropBox.isGood((int) (deltaTime * 1000), new Runnable() {
 			@Override
 			public void run() {
-				positiveAnswersCount++;
+
 				if(positiveAnswersCount == 4) {
 					dropBox.setFinishhing();
 					for(Answer answer : answers ) {
@@ -186,7 +183,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 					}
 				} else {
 					dropBox.reset();
-					baba.state = Baba.State.CZEKA;
 				}
 			}
 		});
@@ -210,11 +206,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		mTextTop = new Texture("pytanie_bg_top.png");
 		loadQuestion();
 
-		baba = new Baba(
-				new PositionedTexture("baba_czeka.png", 76,235),
-				new PositionedTexture("baba_dobra.png", 12,200),
-				new PositionedTexture("baba_zla.png", 87,225)
-		);
 
 		dropBox = new DropBox(207,152,  new Texture("center_box.png"), new Texture("center_box_bad.png"), new Texture("center_box_good.png"), new Texture("center_box_finish.png"));
 		Gdx.input.setInputProcessor(this);
@@ -285,13 +276,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 					if (dropBox.contains(endX, endY)) {
 						if (answer.isCorrect()) {
 							answer.startAnimation(answer.getPosition(), dropBox.getNextFreePosition(answer.targetIndex), 5f);
-							baba.state = Baba.State.ZADOWOLONA;
+
+							positiveAnswersCount++;
 							answer.showGood();
 							dropBox.setGood();
 							mPlayPositive.run();
 						} else {
 							answer.startAnimation(answer.getPosition(), answer.getStartPosition(), 4f);
-							baba.state = Baba.State.ZLA;
 							dropBox.setWrong();
 							mPlayNegative.run();
 						}
@@ -299,7 +290,6 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 					} else {
 						answer.startAnimation(answer.getPosition(), answer.getStartPosition(), 1.2f);
-						baba.state = Baba.State.CZEKA;
 					}
 				}
 			});

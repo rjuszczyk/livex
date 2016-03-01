@@ -155,7 +155,7 @@ public class SendingDataActivity extends AppCompatActivity {
         try {
 
             // Defined URL  where to send data
-            URL url = new URL("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/gardimax/genexo_add_result.php");
+            URL url = new URL("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/livex/livex_add_result.php");
 
             // Send POST data request
 
