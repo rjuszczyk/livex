@@ -26,8 +26,15 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	public static final float ANIMATION_SPEED = 3;
 	Runnable mOnQuizEnd;
 	Runnable mPlayPositive;
-	public MyGdxGame(Runnable onQuizEnd, Runnable playPositive, Runnable playNegative) {
+
+	public enum Sex {
+		MALE,
+		FEMALE
+	}
+	Sex mSex;
+	public MyGdxGame(Runnable onQuizEnd, Runnable playPositive, Runnable playNegative, Sex sex) {
 		mOnQuizEnd = onQuizEnd;
+		mSex = sex;
 		mPlayPositive = playPositive;
 		mPlayNegative = playNegative;
 	}
@@ -207,7 +214,11 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		loadQuestion();
 
 
-		dropBox = new DropBox(207,152,  new Texture("center_box.png"), new Texture("center_box_bad.png"), new Texture("center_box_good.png"), new Texture("center_box_finish.png"));
+		if(mSex==Sex.MALE) {
+			dropBox = new DropBox(207, 152, new Texture("center_box.png"), new Texture("center_box_bad.png"), new Texture("center_box_good.png"), new Texture("center_box_finish_he.png"));
+		} else {
+			dropBox = new DropBox(207, 152, new Texture("center_box.png"), new Texture("center_box_bad.png"), new Texture("center_box_good.png"), new Texture("center_box_finish_she.png"));
+		}
 		Gdx.input.setInputProcessor(this);
 
 		cam = new OrthographicCamera(1280, 800);

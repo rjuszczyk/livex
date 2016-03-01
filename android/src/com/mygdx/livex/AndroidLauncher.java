@@ -36,7 +36,12 @@ public class AndroidLauncher extends AndroidApplication {
 		//	Log.d("user data", mUserData.toString());
 		}
 
-
+		MyGdxGame.Sex sex;
+		if(mUserData.getImie().endsWith("a")) {
+			sex = MyGdxGame.Sex.FEMALE;
+		} else {
+			sex = MyGdxGame.Sex.MALE;
+		}
 
 		AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
 		final MyGdxGame myGdxGame = new MyGdxGame(new Runnable() {
@@ -54,7 +59,7 @@ public class AndroidLauncher extends AndroidApplication {
 			public void run() {
 				mSoundHelper.play(R.raw.negative);
 			}
-		});
+		}, sex);
 
 		View mGdxView = initializeForView(myGdxGame, cfg);
 
