@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#f4f4f4">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/genexo"/>
+    </FrameLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbarStyle="outsideOverlay"
+    android:fillViewport="true"
+    >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/uzupelnij_dane"
+            android:layout_gravity="center"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/przedst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Przedstawiciel Medyczny"
+            android:gravity="center|left"
+            android:paddingLeft="8dp"
+            android:background="@drawable/background_expandable"
+            android:textColor="@color/gray_text"
+            android:textSize="16sp"
+            android:layout_margin="8dp"
+            />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/miasto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Miasto"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/background_expandable"
+                android:textColor="@color/gray_text"
+                android:layout_margin="8dp"
+                android:textSize="16sp"
+                />
+            <TextView
+                android:id="@+id/apteka"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Apteka"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/background_expandable"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp"
+                android:layout_margin="8dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/imie"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Imię"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/background"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp"
+                android:layout_margin="8dp"
+                android:imeOptions="actionNext"
+
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:nextFocusForward="@+id/nazwisko"
+                />
+            <EditText
+                android:id="@+id/nazwisko"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Nazwisko"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:textSize="16sp"
+                android:background="@drawable/background"
+                android:textColor="@color/gray_text"
+                android:layout_margin="8dp"
+                android:imeOptions="actionNext"
+
+                android:inputType="textCapWords"
+                android:singleLine="true"
+                android:nextFocusForward="@+id/telefon"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/telefon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="Telefon"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/background_small"
+                android:textColor="@color/gray_text"
+                android:textSize="16sp"
+                android:layout_margin="8dp"
+                android:imeOptions="actionNext"
+
+                android:inputType="phone"
+                android:singleLine="true"
+                android:nextFocusForward="@+id/email"
+                />
+            <EditText
+                android:id="@+id/email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:hint="E-mail"
+                android:gravity="center|left"
+                android:paddingLeft="8dp"
+                android:background="@drawable/background_small"
+                android:textColor="@color/gray_text"
+                android:layout_margin="8dp"
+                android:inputType="textWebEmailAddress"
+                android:singleLine="true"
+                />
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:id="@+id/regulamin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/regulamin"
+            />
+
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/check1"
+                android:checked="false"
+                android:textSize="12sp"
+                android:text="Oświadczam, że zapoznałem się z Regulaminem, akceptuję jego treść oraz spełniam jego warunki."
+                />
+
+            <CheckBox
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/check2"
+                android:checked="true"
+                android:textSize="12sp"
+                android:text="Wyrażam zgodę na przetwarzanie moich danych osobowych w celach marketingowych zgodnie z przepisami ustawy z dnia 29 sierpnia 1997 r. o ochronie danych osobowych (Dz.U z 2014 poz. 1182). Administratorem danych jest PharmaWay, ul. Księżarskiego 4, 30-376 Kraków. Moje dane udostępniam dobrowolnie, przysługuje mi prawo dostępu do nich oraz ich poprawiania na warunkach określonych w ustawie o ochronie danych osobowych."
+                />
+
+
+            <CheckBox
+                android:layout_marginTop="8dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:id="@+id/check3"
+                android:textSize="12sp"
+                android:text="Wyrażam zgodę na otrzymywanie informacji handlowych środkami komunikacji elektronicznej zgodnie z przepisami ustawy z dnia 18 lipca 2002 r. o świadczeniu usług drogą elektroniczną (dz. U. 2002 r. nr 144, poz. 1204 z późn. zm.)."
+
+                />
+
+        <ImageView
+            android:layout_gravity="center"
+            android:layout_margin="16dp"
+            android:id="@+id/dalej"
+            android:alpha="0.5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/quiz"
+            />
+    </LinearLayout>
+
+    </FrameLayout>
+</ScrollView>
+</LinearLayout>
