@@ -26,17 +26,18 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	public static final float ANIMATION_SPEED = 3;
 	Runnable mOnQuizEnd;
 	Runnable mPlayPositive;
-
+Runnable mPlayBravo;
 	public enum Sex {
 		MALE,
 		FEMALE
 	}
 	Sex mSex;
-	public MyGdxGame(Runnable onQuizEnd, Runnable playPositive, Runnable playNegative, Sex sex) {
+	public MyGdxGame(Runnable onQuizEnd, Runnable playPositive, Runnable playNegative,  Runnable playBravo, Sex sex) {
 		mOnQuizEnd = onQuizEnd;
 		mSex = sex;
 		mPlayPositive = playPositive;
 		mPlayNegative = playNegative;
+		mPlayBravo = playBravo;
 	}
 
 
@@ -141,9 +142,9 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 			float tr = width/(float)mTextTop.getWidth();
 			float fh = mTextTop.getHeight()* tr;
-			batchLarge.draw(mTextTop,0,height-fh, width, fh);
+			
 			batchLarge.draw(m_fboRegion, 0, y, width, height2);
-
+			batchLarge.draw(mTextTop,0,(int)(height-fh), width, (int) fh);
 
 			batchLarge.end();
 		}
@@ -158,11 +159,16 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 
 		batch.setProjectionMatrix(cam.combined);
 		batchLarge.setProjectionMatrix(camLarge.combined);
+
+		batch.draw(white,0,0, cam.viewportWidth, cam.viewportHeight);
+
 		for(PositionedTexture positionedTexture : mTextures) {
 			positionedTexture.draw(batch);
 		}
 
 		dropBox.draw(batch);
+
+
 
 		float deltaTime = Gdx.graphics.getDeltaTime();
 
@@ -184,6 +190,7 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 			public void run() {
 
 				if(positiveAnswersCount == 4) {
+					mPlayBravo.run();
 					dropBox.setFinishhing();
 					for(Answer answer : answers ) {
 						answer.animateOut();
@@ -205,14 +212,16 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 		}
 	}
 	Texture mTextTop;
+	Texture white;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		batchLarge = new SpriteBatch();
 		PositionedTexture.screenHeight = 800;
 		mTextTop = new Texture("pytanie_bg_top.png");
+		mTextTop.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
 		loadQuestion();
-
+		white = new Texture("white.jpg");
 
 		if(mSex==Sex.MALE) {
 			dropBox = new DropBox(207, 152, new Texture("center_box.png"), new Texture("center_box_bad.png"), new Texture("center_box_good.png"), new Texture("center_box_finish_he.png"));

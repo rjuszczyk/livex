@@ -3,6 +3,7 @@ package com.mygdx.livex;
 import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -12,7 +13,7 @@ import android.widget.FrameLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.model.UserData;
 import com.mygdx.livex.util.SoundHelper;
 
@@ -28,7 +29,7 @@ public class AndroidLauncher extends AndroidApplication {
 		mSoundHelper.load(R.raw.positive);
 		mSoundHelper.load(R.raw.negative);
 
-
+		mSoundHelper.load(R.raw.brawo);
 		setContentView(R.layout.quiz_activity);
 
 		if(getIntent()!=null) {
@@ -47,7 +48,12 @@ public class AndroidLauncher extends AndroidApplication {
 		final MyGdxGame myGdxGame = new MyGdxGame(new Runnable() {
 			@Override
 			public void run() {
+
+
 				onQuizEnd();
+
+
+
 			}
 		}, new Runnable(){
 			@Override
@@ -59,7 +65,15 @@ public class AndroidLauncher extends AndroidApplication {
 			public void run() {
 				mSoundHelper.play(R.raw.negative);
 			}
-		}, sex);
+		},
+				new Runnable() {
+
+
+					@Override
+					public void run() {
+						mSoundHelper.play(R.raw.brawo);
+					}
+				}, sex);
 
 		View mGdxView = initializeForView(myGdxGame, cfg);
 

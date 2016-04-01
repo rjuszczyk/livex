@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.model.Row;
 import com.mygdx.livex.model.UserData;
 

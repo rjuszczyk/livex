@@ -22,11 +22,10 @@ public class PodiumGame extends ApplicationAdapter {
 
 
 	Runnable mOnQuizEnd;
-	Runnable mPlayPositive;
 	private Texture white;
 
-	public PodiumGame(Runnable playSound) {
-		mPlayPositive = playSound;
+	public PodiumGame( ) {
+
 	}
 
 	com.mygdx.livex.AnimatablePositionedTexture korona;
@@ -159,7 +158,6 @@ public class PodiumGame extends ApplicationAdapter {
 
 			if (co > 0.5f) {
 				drawKorona = true;
-				mPlayPositive.run();
 				korona.startAnimationIn2();
 				co = 100001;
 			}

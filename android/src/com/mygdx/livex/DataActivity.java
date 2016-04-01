@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.database.DatabaseHelper;
 import com.mygdx.livex.model.Row;
 import com.mygdx.livex.model.RowResponse;
@@ -28,7 +28,6 @@ import retrofit.Response;
 public class DataActivity extends AppCompatActivity {
     @OnClick(R.id.try_again)
     void tryAgain(View v) {
-
         loadDataAndStartNext();
     }
 

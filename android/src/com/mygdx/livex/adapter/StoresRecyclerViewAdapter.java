@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.model.Row;
 
 import java.util.ArrayList;

@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.database.DatabaseHelper;
 import com.mygdx.livex.dialog.ChooseElementDialog;
 import com.mygdx.livex.model.Row;

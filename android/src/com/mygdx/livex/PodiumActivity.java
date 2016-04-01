@@ -8,7 +8,7 @@ import android.widget.FrameLayout;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.model.UserData;
 import com.mygdx.livex.util.SoundHelper;
 
@@ -36,12 +36,7 @@ public class PodiumActivity extends AndroidApplication {
 
 
         AndroidApplicationConfiguration cfg = new AndroidApplicationConfiguration();
-        final PodiumGame myGdxGame = new PodiumGame(new Runnable(){
-            @Override
-            public void run() {
-                mSoundHelper.play(R.raw.brawo);
-            }
-        });
+        final PodiumGame myGdxGame = new PodiumGame();
 
         View mGdxView = initializeForView(myGdxGame, cfg);
 

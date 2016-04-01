@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 
 import butterknife.Bind;
 

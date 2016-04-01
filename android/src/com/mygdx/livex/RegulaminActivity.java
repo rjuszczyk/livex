@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 
 /**
  * Created by Radek on 2016-02-27.
@@ -24,6 +24,10 @@ public class RegulaminActivity extends AppCompatActivity {
             }
         });
         mWebView.setHorizontalScrollBarEnabled(false);
-        mWebView.loadUrl("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/livex/regulamin.html");
+
+        mWebView.getSettings().setJavaScriptEnabled(true);
+
+        //mWebView.loadUrl("http://pharmawayjn.nazwa.pl/MedycynaRodzinna/gardimax/regulamin.html");
+        mWebView.loadUrl("https://docs.google.com/viewer?url=http://pharmawayjn.nazwa.pl/MedycynaRodzinna/livex/regulamin.pdf");
     }
 }

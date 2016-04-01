@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.mygdx.game.R;
+import com.mygdx.livex.R;
 import com.mygdx.livex.adapter.StoresRecyclerViewAdapter;
 import com.mygdx.livex.database.DatabaseHelper;
 import com.mygdx.livex.model.Row;
