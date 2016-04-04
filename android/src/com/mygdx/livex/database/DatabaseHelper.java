@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.mygdx.livex.model.NotSendUser;
 import com.mygdx.livex.model.Row;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         CupboardFactory.setCupboard(new CupboardBuilder().useAnnotations().build());
 
         cupboard().register(Row.class);
+        cupboard().register(NotSendUser.class);
     }
 
     public DatabaseHelper(Context context) {

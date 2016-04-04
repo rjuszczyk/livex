@@ -40,12 +40,4 @@
             android:layout_gravity="center"
             android:text="SPRÓBUJ PONOWNIE"/>
     </LinearLayout>
-
-    <ImageView
-        android:id="@+id/podium"
-        android:visibility="gone"
-        android:src="@drawable/podium"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY"/>
 </FrameLayout>

@@ -15,7 +15,7 @@ android {
         instrumentTest.setRoot('tests')
     }
     defaultConfig {
-        applicationId "com.mygdx.game"
+        applicationId "com.mygdx.livex"
         minSdkVersion 8
         targetSdkVersion 23
     }

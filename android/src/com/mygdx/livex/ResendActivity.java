@@ -1,17 +1,19 @@
 package com.mygdx.livex;
 
-import android.content.Intent;
+/**
+ * Created by Radek on 03.04.2016.
+ */
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.mygdx.livex.database.DbRepository;
 import com.mygdx.livex.model.NotSendUser;
-import com.mygdx.livex.model.Row;
-import com.mygdx.livex.model.UserData;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -20,78 +22,113 @@ import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
-import java.util.Date;
+import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import nl.qbusict.cupboard.CupboardFactory;
 
+import static nl.qbusict.cupboard.CupboardFactory.cupboard;
+
 /**
- * Created by Radek on 2016-02-27.
+ * Created by Radek on 20.03.2016.
  */
-public class SendingDataActivity extends AppCompatActivity {
-    UserData mUserData;
+public class ResendActivity extends AppCompatActivity {
+    @Bind(R.id.info)
+    TextView info;
 
-    @OnClick(R.id.try_again)
-    void tryAgain(View v) {
-        findViewById(R.id.error_view).setVisibility(View.GONE);
-        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sendData(mUserData);
-            }
-        }).start();
+    @Bind(R.id.send)
+    Button send;
+
+    @OnClick(R.id.send)
+    void send(View v) {
+        trySend();
     }
 
-    void onFail() {
-        findViewById(R.id.error_view).setVisibility(View.VISIBLE);
-        findViewById(R.id.loading_view).setVisibility(View.GONE);
-
-
-    }
-
-    void onSuccess() {
-        Intent startIntent = new Intent(SendingDataActivity.this, PodiumActivity.class);
-        startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(startIntent);
-
-        finish();
-    }
-
+    @Bind(R.id.progress_bar)
+    View progressBar;
+    List<NotSendUser> notSendUsers;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.dane_activity);
 
-        mUserData = (UserData) getIntent().getSerializableExtra("user_data");
+        setContentView(R.layout.resend_activity);
 
         ButterKnife.bind(this);
 
-        findViewById(R.id.error_view).setVisibility(View.GONE);
-        findViewById(R.id.loading_view).setVisibility(View.VISIBLE);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                sendData(mUserData);
-            }
-        }).start();
+        progressBar.setVisibility(View.GONE);
+        send.setVisibility(View.VISIBLE);
+        info.setVisibility(View.VISIBLE);
+
+        notSendUsers = cupboard().withDatabase(DbRepository.getDb(this)).query(NotSendUser.class).list();
+
+        int count = notSendUsers.size();
+        info.setText("" + count + " - ilość ankiet czekających na wysłanie");
     }
+    int current = 0;
+    public void trySend() {
 
-    public void sendData(UserData userData) {
+        progressBar.setVisibility(View.VISIBLE);
+        send.setVisibility(View.GONE);
+        info.setVisibility(View.GONE);
 
-        Row row = userData.getRow();
-        try {
-            String data_utworzenia = new Date().toString();
+        if(current < notSendUsers.size()) {
+            final NotSendUser user = notSendUsers.get(current);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    sendData(user);
+                }
+            }).start();
+        } else {
+            progressBar.setVisibility(View.GONE);
+            send.setVisibility(View.VISIBLE);
+            info.setVisibility(View.VISIBLE);
 
-            sendData(userData.getImie(), userData.getNazwisko(), userData.getTelefon(), userData.getEmail(), userData.getCheck1(), userData.getCheck2(), userData.getCheck3(),
-                    row.nazwa_apteki, row.ulica, row.miasto, row.wojewodztwo, row.nazwisko_przedstawiciela, row.imie_przedstawiciela, row.rks_nazwisko, row.rks_imie, data_utworzenia);
-        } catch (Exception e) {
-            e.printStackTrace();
+            notSendUsers = cupboard().withDatabase(DbRepository.getDb(this)).query(NotSendUser.class).list();
+
+            int count = notSendUsers.size();
+            info.setText("" + count + " - ilość ankiet czekających na wysłanie");
         }
     }
+    void onSuccess() {
+        current++;
+        trySend();
+    }
+    void onFail() {
+        progressBar.setVisibility(View.GONE);
+        send.setVisibility(View.VISIBLE);
+        info.setVisibility(View.VISIBLE);
 
+        notSendUsers = cupboard().withDatabase(DbRepository.getDb(this)).query(NotSendUser.class).list();
+        Toast.makeText(this, "Błąd podczas wysyłania", Toast.LENGTH_SHORT).show();
+    }
+
+    public void sendData(NotSendUser notSendUser) {
+        try {
+            sendData(notSendUser.imie,
+                    notSendUser.nazwisko,
+
+                    notSendUser.telefon,
+                    notSendUser.email,
+                    notSendUser.odp1,
+                    notSendUser.odp2,
+                    notSendUser.odp3,
+                    notSendUser.nazwa_apteki,
+                    notSendUser.ulica,
+                    notSendUser.miasto,
+                    notSendUser.wojewodztwo,
+                    notSendUser.nazwisko_przedstawiciela,
+                    notSendUser.imie_przedstawiciela,
+                    notSendUser.rks_nazwisko,
+                    notSendUser.rks_imie,
+                    notSendUser.data_utworzenia);
+        }catch (Exception e) {
+
+        }
+
+    }
 
 
     public void sendData(
@@ -165,9 +202,8 @@ public class SendingDataActivity extends AppCompatActivity {
         data += "&" + URLEncoder.encode("rks_imie", "UTF-8") + "="
                 + URLEncoder.encode(rks_imie, "UTF-8");
 
-
-
         data += "&" + URLEncoder.encode("data_utworzenia", "UTF-8") + "="
+
                 + URLEncoder.encode(data_utworzenia, "UTF-8");
 
         String text = "";
@@ -227,7 +263,7 @@ public class SendingDataActivity extends AppCompatActivity {
                             notSendUser.rks_nazwisko = rks_nazwisko;
                             notSendUser.rks_imie = rks_imie;
                             notSendUser.data_utworzenia = data_utworzenia;
-                            notSendUser.save(SendingDataActivity.this);
+                            notSendUser.save(ResendActivity.this);
 
                         }
                         onFail();
@@ -235,6 +271,7 @@ public class SendingDataActivity extends AppCompatActivity {
                 });
                 return;
             }
+
             Log.d("result", "r = " + text);
         } catch (Exception ex) {
             runOnUiThread(new Runnable() {
@@ -262,7 +299,7 @@ public class SendingDataActivity extends AppCompatActivity {
                         notSendUser.rks_nazwisko = rks_nazwisko;
                         notSendUser.rks_imie = rks_imie;
                         notSendUser.data_utworzenia = data_utworzenia;
-                        notSendUser.save(SendingDataActivity.this);
+                        notSendUser.save(ResendActivity.this);
 
                     }
                     onFail();
@@ -282,7 +319,7 @@ public class SendingDataActivity extends AppCompatActivity {
             public void run() {
                 NotSendUser notSendUser = getNotSendUser(imie, nazwisko, nazwa_apteki, ulica);
                 if(notSendUser != null) {
-                    notSendUser.delete(SendingDataActivity.this);
+                    notSendUser.delete(ResendActivity.this);
                 }
                 onSuccess();
             }
@@ -292,7 +329,7 @@ public class SendingDataActivity extends AppCompatActivity {
     }
 
     NotSendUser getNotSendUser(String imie, String nazwisko, String nazwa_apteki, String ulica) {
-        NotSendUser notSendUser = CupboardFactory.cupboard().withDatabase(DbRepository.getDb(SendingDataActivity.this)).query(NotSendUser.class).withSelection("imie = ? and nazwisko = ? and nazwa_apteki = ? and ulica = ?",
+        NotSendUser notSendUser = CupboardFactory.cupboard().withDatabase(DbRepository.getDb(ResendActivity.this)).query(NotSendUser.class).withSelection("imie = ? and nazwisko = ? and nazwa_apteki = ? and ulica = ?",
                 new String[]{imie,nazwisko, nazwa_apteki, ulica}).get();
         return notSendUser;
     }

@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.mygdx.livex.R;
 import com.mygdx.livex.database.DatabaseHelper;
+import com.mygdx.livex.database.DbRepository;
 import com.mygdx.livex.model.Row;
 import com.mygdx.livex.model.RowResponse;
 import com.mygdx.livex.network.MyRetrofit;
@@ -37,6 +38,7 @@ public class DataActivity extends AppCompatActivity {
         setContentView(R.layout.dane_activity);
 
         ButterKnife.bind(this);
+        DbRepository.getDb(this);
 
 
         loadDataAndStartNext();

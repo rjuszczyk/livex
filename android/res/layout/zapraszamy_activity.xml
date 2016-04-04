@@ -12,6 +12,13 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:src="@drawable/genexo"/>
+
+        <TextView
+            android:id="@+id/try_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_margin="16dp"/>
     </FrameLayout>
         <LinearLayout
             android:layout_width="wrap_content"
