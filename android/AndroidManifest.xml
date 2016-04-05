@@ -24,7 +24,7 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
 
         </activity>
-        <activity android:name="com.mygdx.livex.DataActivity"
+        <activity android:name="com.mygdx.livex.StartActivity"
             android:screenOrientation="landscape"
 
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
@@ -32,6 +32,12 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name="com.mygdx.livex.DataActivity"
+            android:screenOrientation="landscape"
+
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize">
+
         </activity>
         <activity android:name="com.mygdx.livex.FormActivity"
             android:screenOrientation="landscape"

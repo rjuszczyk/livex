@@ -3,9 +3,11 @@ package com.mygdx.livex;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 import com.mygdx.livex.database.DbRepository;
@@ -45,13 +47,23 @@ public class SendingDataActivity extends AppCompatActivity {
     }
 
     void onFail() {
-        findViewById(R.id.error_view).setVisibility(View.VISIBLE);
-        findViewById(R.id.loading_view).setVisibility(View.GONE);
+//        findViewById(R.id.error_view).setVisibility(View.VISIBLE);
+//        findViewById(R.id.loading_view).setVisibility(View.GONE);
 
+        Toast.makeText(this, "Brak połaczenia z Internetem. Twoje zgłoszenie zostanie wysłane, kiedy uzyskasz dostęp do sieci", Toast.LENGTH_LONG).show();
+
+        Intent startIntent = new Intent(SendingDataActivity.this, PodiumActivity.class);
+        startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(startIntent);
+
+        finish();
 
     }
 
     void onSuccess() {
+        Toast.makeText(this, "Twoje zgłoszenie zostało wysłane", Toast.LENGTH_LONG).show();
+
         Intent startIntent = new Intent(SendingDataActivity.this, PodiumActivity.class);
         startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -83,7 +95,7 @@ public class SendingDataActivity extends AppCompatActivity {
 
         Row row = userData.getRow();
         try {
-            String data_utworzenia = new Date().toString();
+            String data_utworzenia = DateFormat.format("yyyy-MM-dd hh:mm:ss", new java.util.Date()).toString();//new Date().toString();
 
             sendData(userData.getImie(), userData.getNazwisko(), userData.getTelefon(), userData.getEmail(), userData.getCheck1(), userData.getCheck2(), userData.getCheck3(),
                     row.nazwa_apteki, row.ulica, row.miasto, row.wojewodztwo, row.nazwisko_przedstawiciela, row.imie_przedstawiciela, row.rks_nazwisko, row.rks_imie, data_utworzenia);
