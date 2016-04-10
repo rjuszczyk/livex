@@ -50,7 +50,8 @@ public class SendingDataActivity extends AppCompatActivity {
 //        findViewById(R.id.error_view).setVisibility(View.VISIBLE);
 //        findViewById(R.id.loading_view).setVisibility(View.GONE);
 
-        Toast.makeText(this, "Brak połaczenia z Internetem. Twoje zgłoszenie zostanie wysłane, kiedy uzyskasz dostęp do sieci", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Brak połaczenia z Internetem.", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Twoje zgłoszenie zostanie wysłane, kiedy uzyskasz dostęp do sieci", Toast.LENGTH_LONG).show();
 
         Intent startIntent = new Intent(SendingDataActivity.this, PodiumActivity.class);
         startIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
